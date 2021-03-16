@@ -123,4 +123,29 @@ class CrudAssistantBladeComponents
         return $path.'.';
     }
 
+    /**
+     * Parses 
+     *
+     * @param string $expression 
+     * 
+     * @return string
+     * 
+     * @see https://github.com/appstract/laravel-blade-directives/blob/master/src/Parser.php
+     * 
+     */
+    public function parse(string $expression)
+    {
+        $output = [];
+        $parsed = array_map(function ($item) {
+            return trim(
+                trim($item, '\'"')
+            );
+        }, explode(',', $expression));
+
+        $output['component'] = array_shift($parsed);
+        $output['params'] = implode(",", $parsed);
+
+        return $output;
+    }
+
 }
