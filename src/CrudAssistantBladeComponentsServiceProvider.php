@@ -15,22 +15,27 @@ class CrudAssistantBladeComponentsServiceProvider extends ServiceProvider
         $helper = CrudAssistantBladeComponents::make();
         
         Blade::directive('caComponent', function ($expression) {
-            $params = explode(',', $expression);
-            $component = trim($params[0], '\'"');
-            $params = trim($params[1], '\'"');
-            $path = CrudAssistantBladeComponents::make()
-                ->component($component);
             
+            $helper = CrudAssistantBladeComponents::make();
+            
+            $parsed = $helper->parse($expression);
+            $component = $parsed['component'];
+            $params = $parsed['params'] ??  null;
+            $path = $helper->component($component);
+
             return "<?php echo view('{$path}', {$params})->render(); ?>";
         });
 
         Blade::directive('caInput', function ($expression) {
-            $params = explode(',', $expression);
-            $component = trim($params[0], '\'"');
-            $params = trim($params[1], '\'"');
-            $path = CrudAssistantBladeComponents::make()
-                ->input($component);
-            return "<?php echo view('{$path}, {$params}')->render(); ?>";
+            
+            $helper = CrudAssistantBladeComponents::make();
+
+            $parsed = $helper->parse($expression);
+            $component = $parsed['component'];
+            $params = $parsed['params'] ??  null;
+            $path = $helper->input($component);
+            
+            return "<?php echo view('{$path}', ['input' => {$params}])->render(); ?>";
         });
 
         /*
