@@ -3,6 +3,7 @@
 namespace Chatagency\CrudAssistantBladeComponents;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class CrudAssistantBladeComponentsServiceProvider extends ServiceProvider
 {
@@ -11,14 +12,35 @@ class CrudAssistantBladeComponentsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $helper = CrudAssistantBladeComponents::make();
+        
+        Blade::directive('caComponent', function ($expression) {
+            $params = explode(',', $expression);
+            $component = trim($params[0], '\'"');
+            $params = trim($params[1], '\'"');
+            $path = CrudAssistantBladeComponents::make()
+                ->component($component);
+            
+            return "<?php echo view('{$path}', {$params})->render(); ?>";
+        });
+
+        Blade::directive('caInput', function ($expression) {
+            $params = explode(',', $expression);
+            $component = trim($params[0], '\'"');
+            $params = trim($params[1], '\'"');
+            $path = CrudAssistantBladeComponents::make()
+                ->input($component);
+            return "<?php echo view('{$path}, {$params}')->render(); ?>";
+        });
+
         /*
          * Optional methods to load your package assets
          */
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'crud-assistant-blade-components');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', $helper->getNamespace());
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('crud-assistant-blade-components.php'),
+                __DIR__.'/../config/crud-assistant-blade-components.php' => config_path('crud-assistant-blade-components.php'),
             ], 'config');
 
             // Publishing the views.
@@ -34,7 +56,7 @@ class CrudAssistantBladeComponentsServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'crud-assistant-blade-components');
+        $this->mergeConfigFrom(__DIR__.'/../config/crud-assistant-blade-components.php', 'crud-assistant-blade-components');
 
         // Register the main class to use with the facade
         $this->app->singleton('crud-assistant-blade-components', function () {
