@@ -2,6 +2,7 @@
 
 namespace Chatagency\CrudAssistantBladeComponents\Tests;
 
+use Chatagency\CrudAssistant\DataContainer;
 use Chatagency\CrudAssistantBladeComponents\CrudAssistantBladeComponentsServiceProvider;
 use Chatagency\CrudAssistantBladeComponents\CrudAssistantBladeComponentsFacade;
 
@@ -28,10 +29,10 @@ class CrudAssistantBladeComponentsTest extends TestCase
         $path = CrudAssistantBladeComponentsFacade::component('table');
 
         $params = '[
-            "head" => []
-            "body" => []
-            "pagination" => null
-            "count" => 0
+            "head" => [],
+            "body" => [],
+            "pagination" => null,
+            "count" => 0,
         ]';
 
         $component = $this->blade->compileString('@caComponent("table", '.$params .')');
@@ -44,21 +45,21 @@ class CrudAssistantBladeComponentsTest extends TestCase
     {
         $path = CrudAssistantBladeComponentsFacade::input('text');
 
-        $params = '[
-            "name" => "name"
-            "label" => "Name"
-            "type" => "text"
-            "title" => null
-            "helpText" => "Enter your name"
-            "invalidFeedback" => null
-            "labelAttributes" => []
-            "extra" => []
-            "attributes" => []
-            "value" => "Margaret Garcia"
-            "error" => null
-        ]';
+        $params = 'new DataContainer([
+            "name" => "name",
+            "label" => "Name",
+            "type" => "text",
+            "title" => null,
+            "helpText" => "Enter your name",
+            "invalidFeedback" => null,
+            "labelAttributes" => [],
+            "extra" => [],
+            "attributes" => [],
+            "value" => "Margaret Garcia",
+            "error" => null,
+        ])';
 
-        $component = $this->blade->compileString('@caInput("text", '.$params .')');
+        $component = $this->blade->compileString('@caInput("text", '.$params.')');
 
         $this->assertStringContainsString($path, $component);
     }
