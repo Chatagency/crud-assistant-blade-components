@@ -2,31 +2,19 @@
 
 namespace Chatagency\CrudAssistantBladeComponents\Tests;
 
-use Chatagency\CrudAssistant\DataContainer;
 use Chatagency\CrudAssistantBladeComponents\CrudAssistantBladeComponentsServiceProvider;
-use Chatagency\CrudAssistantBladeComponents\CrudAssistantBladeComponentsFacade;
 
 class CrudAssistantBladeComponentsTest extends TestCase
 {
-    
-    
     protected function getPackageProviders($app)
     {
         return [CrudAssistantBladeComponentsServiceProvider::class];
     }
     
     /** @test */
-    public function the_facade_can_be_used_to_access_a_component_path()
-    {
-        $path = CrudAssistantBladeComponentsFacade::component('table');
-
-        $this->assertEquals(CrudAssistantBladeComponentsFacade::compose().'table', $path);
-    }
-
-    /** @test */
     public function a_directive_can_be_used_to_include_a_component()
     {
-        $path = CrudAssistantBladeComponentsFacade::component('table');
+        $path = app('crud-assistant-blade-components')->component('table');
 
         $params = '[
             "head" => [],
@@ -43,7 +31,7 @@ class CrudAssistantBladeComponentsTest extends TestCase
     /** @test */
     public function a_directive_can_be_used_to_include_an_input()
     {
-        $path = CrudAssistantBladeComponentsFacade::input('text');
+        $path = app('crud-assistant-blade-components')->input('text');
 
         $params = 'new DataContainer([
             "name" => "name",

@@ -78,7 +78,13 @@ class CrudAssistantBladeComponents
      */
     public function component(string $component)
     {
-        return $this->compose().$component;
+        $base = $this->compose();
+
+        if($this->isExpression($component)) {
+            return $this->wrapInQuotes($base).'.'.$component;
+        }
+
+        return $this->wrapInQuotes($base.trim($component, '\'"'));
     }
 
     /**
@@ -90,7 +96,13 @@ class CrudAssistantBladeComponents
      */
     public function input(string $component)
     {
-        return $this->compose(true).$component;
+        $base = $this->compose(true);
+        
+        if($this->isExpression($component)) {
+            return $this->wrapInQuotes($base).'.'.$component;
+        }
+
+        return $this->wrapInQuotes($base.trim($component, '\'"'));
     }
 
     /**
@@ -107,6 +119,7 @@ class CrudAssistantBladeComponents
      * Composes the blade path
      *
      * @param boolean $input
+     * 
      * @return string
      */
     public function compose($input = false)
@@ -124,28 +137,40 @@ class CrudAssistantBladeComponents
     }
 
     /**
-     * Parses 
+     * Parses directive params
      *
      * @param string $expression 
      * 
      * @return string
-     * 
-     * @see https://github.com/appstract/laravel-blade-directives/blob/master/src/Parser.php
-     * 
      */
     public function parse(string $expression)
     {
         $output = [];
         $parsed = array_map(function ($item) {
-            return trim(
-                trim($item, '\'"')
-            );
+            return trim($item);
         }, explode(',', $expression));
 
         $output['component'] = array_shift($parsed);
         $output['params'] = implode(",", $parsed);
 
         return $output;
+    }
+
+    /**
+     * Checks if string is variable
+     *
+     * @param string $variable
+     * 
+     * @return boolean
+     */
+    protected function isExpression(string $string)
+    {
+        return substr($string, 0, 1 ) !== "'" && substr($string, 0, 1 ) !== '"';
+    }
+
+    public function wrapInQuotes(string $string)
+    {
+        return "'".$string."'";
     }
 
 }

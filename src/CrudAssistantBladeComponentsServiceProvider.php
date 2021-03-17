@@ -23,7 +23,7 @@ class CrudAssistantBladeComponentsServiceProvider extends ServiceProvider
             $params = $parsed['params'] ??  null;
             $path = $helper->component($component);
 
-            return "<?php echo view('{$path}', {$params})->render(); ?>";
+            return "<?php echo view({$path}, {$params})->render(); ?>";
         });
 
         Blade::directive('caInput', function ($expression) {
@@ -35,7 +35,7 @@ class CrudAssistantBladeComponentsServiceProvider extends ServiceProvider
             $params = $parsed['params'] ??  null;
             $path = $helper->input($component);
             
-            return "<?php echo view('{$path}', ['input' => {$params}])->render(); ?>";
+            return "<?php echo view({$path}, ['input' => {$params}])->render(); ?>";
         });
 
         /*
@@ -64,7 +64,7 @@ class CrudAssistantBladeComponentsServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/crud-assistant-blade-components.php', 'crud-assistant-blade-components');
 
         // Register the main class to use with the facade
-        $this->app->singleton('crud-assistant-blade-components', function () {
+        $this->app->bind('crud-assistant-blade-components', function () {
             return new CrudAssistantBladeComponents;
         });
     }
