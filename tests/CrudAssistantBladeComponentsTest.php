@@ -14,7 +14,7 @@ class CrudAssistantBladeComponentsTest extends TestCase
     /** @test */
     public function a_directive_can_be_used_to_include_a_component()
     {
-        $path =  CAHelper()->component('table');
+        $path =  CACHelper()->component('table');
 
         $params = '[
             "head" => [],
@@ -31,7 +31,7 @@ class CrudAssistantBladeComponentsTest extends TestCase
     /** @test */
     public function a_directive_can_be_used_to_include_an_input()
     {
-        $path =  CAHelper()->input('text');
+        $path =  CACHelper()->input('text');
 
         $params = 'new DataContainer([
             "name" => "name",
