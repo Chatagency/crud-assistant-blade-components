@@ -29,6 +29,13 @@ class CrudAssistantBladeComponents
     protected $inputPath = 'inputs';
 
     /**
+     * Input path.
+     *
+     * @var string
+     */
+    protected $partialsPath = 'partials';
+
+    /**
      * Template type.
      *
      * @var string
@@ -69,6 +76,21 @@ class CrudAssistantBladeComponents
         return $this->namespace;
     }
 
+    public function component(string $component)
+    {
+        return $this->compose().$component;
+    }
+
+    public function input(string $component)
+    {
+        return $this->compose(true).$component;
+    }
+
+    public function partial(string $partial)
+    {
+        return $this->compose(false, true).$partial;
+    }
+
     /**
      * Returns component blade path.
      *
@@ -76,7 +98,7 @@ class CrudAssistantBladeComponents
      * 
      * @return string
      */
-    public function component(string $component)
+    public function rawComponent(string $component)
     {
         $base = $this->compose();
 
@@ -84,7 +106,7 @@ class CrudAssistantBladeComponents
             return $this->wrapInQuotes($base).'.'.$component;
         }
 
-        return $this->wrapInQuotes($base.trim($component, '\'"'));
+        return $this->wrapInQuotes($base.$this->trimQuotes($component));
     }
 
     /**
@@ -94,7 +116,7 @@ class CrudAssistantBladeComponents
      * 
      * @return string
      */
-    public function input(string $component)
+    public function rawInput(string $component)
     {
         $base = $this->compose(true);
         
@@ -102,7 +124,7 @@ class CrudAssistantBladeComponents
             return $this->wrapInQuotes($base).'.'.$component;
         }
 
-        return $this->wrapInQuotes($base.trim($component, '\'"'));
+        return $this->wrapInQuotes($base.$this->trimQuotes($component));
     }
 
     /**
@@ -122,7 +144,7 @@ class CrudAssistantBladeComponents
      * 
      * @return string
      */
-    public function compose($input = false)
+    public function compose($input = false, $partial = false)
     {
         $path = $this->getNamespace()
             .'::'.$this->vendorNamespace
@@ -131,6 +153,10 @@ class CrudAssistantBladeComponents
 
         If($input) {
             $path .= '.'.$this->inputPath;
+        }
+
+        If($partial) {
+            $path .= '.'.$this->partialsPath;
         }
 
         return $path.'.';
@@ -171,6 +197,11 @@ class CrudAssistantBladeComponents
     public function wrapInQuotes(string $string)
     {
         return "'".$string."'";
+    }
+
+    public function trimQuotes($string)
+    {
+        return trim($string, '\'"');
     }
 
 }
