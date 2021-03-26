@@ -1,0 +1,1 @@
+@caInput('text', $input)
