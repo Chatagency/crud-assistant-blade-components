@@ -13,34 +13,7 @@ class CrudAssistantBladeComponentsServiceProvider extends ServiceProvider
     public function boot()
     {
         $helper = CrudAssistantBladeComponents::make();
-        
-        Blade::directive('caComponent', function ($expression) {
-            
-            $helper = CrudAssistantBladeComponents::make();
-            
-            $parsed = $helper->parse($expression);
-            $component = $parsed['component'];
-            $params = $parsed['params'] ??  null;
-            $path = $helper->component($component);
 
-            return "<?php echo view({$path}, {$params})->render(); ?>";
-        });
-
-        Blade::directive('caInput', function ($expression) {
-            
-            $helper = CrudAssistantBladeComponents::make();
-
-            $parsed = $helper->parse($expression);
-            $component = $parsed['component'];
-            $params = $parsed['params'] ??  null;
-            $path = $helper->input($component);
-            
-            return "<?php echo view({$path}, ['input' => {$params}])->render(); ?>";
-        });
-
-        /*
-         * Optional methods to load your package assets
-         */
         $this->loadViewsFrom(__DIR__.'/../resources/views', $helper->getNamespace());
 
         if ($this->app->runningInConsole()) {
@@ -53,6 +26,9 @@ class CrudAssistantBladeComponentsServiceProvider extends ServiceProvider
                 __DIR__.'/../resources/views' => resource_path('views/vendor/crud-assistant-blade-components'),
             ], 'views');
         }
+        
+        $this->registerBladeDirectives($helper);
+
     }
 
     /**
@@ -66,6 +42,31 @@ class CrudAssistantBladeComponentsServiceProvider extends ServiceProvider
         // Register the main class to use with the facade
         $this->app->bind('crud-assistant-blade-components', function () {
             return new CrudAssistantBladeComponents;
+        });
+
+        include_once('helpers.php');
+    }
+
+    public function registerBladeDirectives($helper)
+    {
+        Blade::directive('caComponent', function ($expression) use ($helper) {
+            
+            $parsed = $helper->parse($expression);
+            $component = $parsed['component'];
+            $params = $parsed['params'] ??  null;
+            $path = $helper->rawComponent($component);
+
+            return "<?php echo view({$path}, {$params})->render(); ?>";
+        });
+
+        Blade::directive('caInput', function ($expression) use ($helper) {
+            
+            $parsed = $helper->parse($expression);
+            $component = $parsed['component'];
+            $params = $parsed['params'] ??  null;
+            $path = $helper->rawInput($component);
+            
+            return "<?php echo view({$path}, ['input' => {$params}])->render(); ?>";
         });
     }
 }
