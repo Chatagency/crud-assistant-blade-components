@@ -39,11 +39,6 @@ class CrudAssistantBladeComponentsServiceProvider extends ServiceProvider
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__.'/../config/crud-assistant-blade-components.php', 'crud-assistant-blade-components');
 
-        // Register the main class to use with the facade
-        $this->app->bind('crud-assistant-blade-components', function () {
-            return new CrudAssistantBladeComponents;
-        });
-
         include_once('helpers.php');
     }
 

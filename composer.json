@@ -63,10 +63,7 @@
         "laravel": {
             "providers": [
                 "Chatagency\\CrudAssistantBladeComponents\\CrudAssistantBladeComponentsServiceProvider"
-            ],
-            "aliases": {
-                "CrudAssistantBladeComponents": "Chatagency\\CrudAssistantBladeComponents\\CrudAssistantBladeComponentsFacade"
-            }
+            ]
         }
     }
 }
