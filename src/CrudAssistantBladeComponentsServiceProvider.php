@@ -19,12 +19,12 @@ class CrudAssistantBladeComponentsServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/crud-assistant-blade-components.php' => config_path('crud-assistant-blade-components.php'),
-            ], 'config');
+            ], 'cabc-config');
 
             // Publishing the views.
             $this->publishes([
                 __DIR__.'/../resources/views' => resource_path('views/vendor/crud-assistant-blade-components'),
-            ], 'views');
+            ], 'cabc-views');
         }
         
         $this->registerBladeDirectives($helper);
