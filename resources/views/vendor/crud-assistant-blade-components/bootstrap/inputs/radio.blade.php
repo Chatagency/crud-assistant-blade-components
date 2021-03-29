@@ -20,4 +20,8 @@
   
   @include(CACHelper()->partial('attributes'), [
     'attributes' => $attributes
-  ]) >
+  ]) 
+  
+  @if((isset($attributes['value']) && $value == $attributes['value']) || ($value == $input->name))
+    checked
+  @endif>
