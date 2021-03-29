@@ -22,6 +22,13 @@ class CrudAssistantBladeComponents
     protected $vendorNamespace = 'vendor';
 
     /**
+     * Component path.
+     *
+     * @var string
+     */
+    protected $componentPath = 'components';
+
+    /**
      * Input path.
      *
      * @var string
@@ -138,6 +145,18 @@ class CrudAssistantBladeComponents
     }
 
     /**
+     * Returns views base path
+     *
+     * @return void
+     */
+    public function base()
+    {
+        return $this->getNamespace()
+            .'::'.$this->vendorNamespace
+            .'.'.$this->namespace;
+    }
+
+    /**
      * Composes the blade path
      *
      * @param boolean $input
@@ -146,10 +165,12 @@ class CrudAssistantBladeComponents
      */
     public function compose($input = false, $partial = false)
     {
-        $path = $this->getNamespace()
-            .'::'.$this->vendorNamespace
-            .'.'.$this->namespace
+        $path = $this->base()
             .'.'.$this->type;
+
+        if(!$input && !$partial) {
+            $path .= '.'.$this->componentPath;
+        }
 
         If($input) {
             $path .= '.'.$this->inputPath;
