@@ -9,7 +9,7 @@
     name="{{ $input->name }}"
   @endif
   @if(!isset($attributes['class']))
-    class="form-input form-control {{ $class ?? null }}"
+    class="form-control {{ $class ?? null }}"
   @endif
   @if(!isset($attributes['id']))
     id="{{ $input->name }}"
