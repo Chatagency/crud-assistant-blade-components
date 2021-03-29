@@ -1,22 +1,17 @@
 @php
-  $class = $class ?? 'col-form-label ';
-  $id = $input->name;
+  $attributes = $input->labelAttributes ?? [];
+  $inputAttributes = $input->attributes ?? [];
 @endphp
 <legend 
-   @foreach($input->labelAttributes as $key => $value)
-    @if($key == 'class')
-      @php
-        $class .= $value;
-      @endphp
-    @elseif($key == 'id')
-      @php
-        $id = $value;
-      @endphp
-    @else
-    {{$key}} = "{{ $value }}"
-    @endif
-  @endforeach
-  class="{{ $class }}"
-  id="{{ $id }}">
+  @if(!isset($attributes['class']))
+    class="{{ $class ?? 'col-form-label' }}"
+  @endif
+  @if(!isset($attributes['id']))
+    id="{{ $input->name }}"
+  @endif
+  
+  @include(CACHelper()->partial('attributes'), [
+    'attributes' => $attributes
+  ]) >
     {{ $input->label }}
 </legend>

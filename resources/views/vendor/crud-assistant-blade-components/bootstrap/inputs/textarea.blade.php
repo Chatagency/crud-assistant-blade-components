@@ -1,27 +1,24 @@
 @php
-  $class = $class ?? 'form-input form-control ';
-  $id = $input->name;
-  $name = $input->name;
+  $attributes = $input->attributes ?? [];
 @endphp
 <textarea 
-  rows="5" 
-  @foreach($input->attributes as $key => $value)
-    @if($key == 'class')
-      @php
-        $class .= $value;
-      @endphp
-    @elseif($key == 'id')
-      @php
-        $id = $value;
-      @endphp
-    @elseif($key == 'name')
-      @php
-        $name = $value;
-      @endphp
-    @else
-    {{$key}} = "{{ $value }}"
-    @endif
-  @endforeach
-  name="{{ $name }}" 
-  class="{{ $class }}" 
-  id="{{ $id }}">{{ $input->value }}</textarea>
+  
+  @if(!isset($attributes['name']))
+    name="{{ $input->name }}"
+  @endif
+  @if(!isset($attributes['class']))
+    class="{{ $class ?? 'form-control' }}"
+  @endif
+  @if(!isset($attributes['id']))
+    id="{{ $input->name }}"
+  @endif
+  @if(!isset($attributes['rows']))
+    rows="{{ $input->rows ?? '5' }}"
+  @endif
+  @if(!isset($attributes['columns']))
+    columns="{{ $input->columns ?? '10' }}"
+  @endif
+
+  @include(CACHelper()->partial('attributes'), [
+    'attributes' => $attributes
+  ]) >{{ $attributes['value'] ?? $input->value }}</textarea>

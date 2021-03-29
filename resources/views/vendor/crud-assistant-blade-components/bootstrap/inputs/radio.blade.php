@@ -1,26 +1,23 @@
 @php
-  $class = $class ?? '';
-  $id = $input->name;
+  $attributes = $input->attributes ?? [];
 @endphp
 <input
-  name="{{$radioName}}"
-  type="{{ $input->type }}"
-  value="{{ $input->name }}"
-  @foreach($input->attributes as $key => $attrValue)
-    @if($key == 'class')
-      @php
-        $class .= $attrValue;
-      @endphp
-    @elseif($key == 'id')
-      @php
-        $id = $attrValue;
-      @endphp
-    @else
-    {{$key}} = "{{ $attrValue }}"
-    @endif
-  @endforeach
-  class="{{ $class }}"
-  id="{{ $id }}"
-  @if($value == $input->name)
-    checked
-  @endif >
+  @if(!isset($attributes['type']))
+    type="{{ $input->type }}"
+  @endif
+  @if(!isset($attributes['name']))
+    name="{{ $radioName }}"
+  @endif
+  @if(!isset($attributes['value']))
+    value="{{ $input->name }}"
+  @endif
+  @if(!isset($attributes['class']))
+    class="{{ $class ?? 'form-check-inpu' }}"
+  @endif
+  @if(!isset($attributes['id']))
+    id="{{ $input->name }}"
+  @endif
+  
+  @include(CACHelper()->partial('attributes'), [
+    'attributes' => $attributes
+  ]) >

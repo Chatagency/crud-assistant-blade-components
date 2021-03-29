@@ -1,9 +1,15 @@
+@php
+  $attributes = $input->attributes ?? [];
+@endphp
 <option 
-  value="{{ $input->name }}"
-  @foreach($input->attributes as $key => $value)
-    {{$key}} = "{{ $value }}"
-  @endforeach 
-  @if($value == $input->name)
-  selected
+  @if(!isset($attributes['value']))
+    value="{{ $input->name }}"
   @endif
-  >{{ $input->label }}</option>
+  
+  @include(CACHelper()->partial('attributes'), [
+    'attributes' => $attributes
+  ])
+
+  @if($value == $input->name)
+    selected
+  @endif >{{ $input->label }}</option>

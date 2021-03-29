@@ -1,36 +1,28 @@
 @php
-  $class = $class ?? 'mr-1 ';
-  $id = $input->name;
-  $name = $input->name;
-  $valueAttribute = 1;
+  $attributes = $input->attributes ?? [];
+  $defaultValue = 1;
 @endphp
 <input
-  type="{{ $input->type }}"
-   @foreach($input->attributes as $key => $attribute)
-    @if($key == 'class')
-      @php
-        $class .= $attribute;
-      @endphp
-    @elseif($key == 'id')
-      @php
-        $id = $attribute;
-      @endphp
-    @elseif($key == 'name')
-      @php
-        $name = $attribute;
-      @endphp
-    @elseif($key == 'value')
-      @php
-        $valueAttribute = $attribute;
-      @endphp
-    @else
-    {{ $key }} = "{{ $attribute }}"
-    @endif
-  @endforeach
-  value="{{ $valueAttribute }}"
-  name="{{ $name }}"
-  class="{{ $class }}"
-  id="{{ $id }}"
-  @if($input->value == 1)
+  @if(!isset($attributes['type']))
+    type="{{ $input->type }}"
+  @endif
+  @if(!isset($attributes['name']))
+    name="{{ $input->name }}"
+  @endif
+  @if(!isset($attributes['class']))
+    class="{{ $class ?? 'mr-1' }}"
+  @endif
+  @if(!isset($attributes['id']))
+    id="{{ $input->name }}"
+  @endif
+  @if(!isset($attributes['value']))
+    value="{{ $defaultValue }}"
+  @endif
+
+  @include(CACHelper()->partial('attributes'), [
+    'attributes' => $attributes
+  ]) 
+  @if($input->value == $defaultValue || (isset($attributes['value']) && $input->value = $attributes['value']))
     checked
   @endif >
+

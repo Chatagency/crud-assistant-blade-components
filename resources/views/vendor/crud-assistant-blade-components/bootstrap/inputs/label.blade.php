@@ -1,23 +1,17 @@
 @php
-  $class = $class ?? 'form-label ';
-  $for = $input->attributes['id'] ?? $input->name;
+  $attributes = $input->labelAttributes ?? [];
+  $inputAttributes = $input->attributes ?? [];
 @endphp
 <label 
-  
-  @foreach($input->labelAttributes as $key => $value)
-    @if($key == 'class')
-      @php
-        $class .= $value;
-      @endphp
-    @elseif($key == 'for')
-      @php
-        $for = $value;
-      @endphp
-    @else
-    {{$key}} = "{{ $value }}"
-    @endif
-  @endforeach
-  class="{{ $class }}"
-  for="{{ $for }}">
+  @if(!isset($attributes['for']))
+    for="{{ $inputAttributes['id'] ?? $input->name}}"
+  @endif
+  @if(!isset($attributes['class']))
+    class="{{ $class ?? 'form-label' }}"
+  @endif
+
+  @include(CACHelper()->partial('attributes'), [
+    'attributes' => $attributes
+  ]) >
     {{ $input->label }}
 </label>

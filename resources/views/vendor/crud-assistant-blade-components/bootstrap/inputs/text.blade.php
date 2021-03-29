@@ -1,30 +1,22 @@
 @php
-  $class = $class ?? 'form-input form-control ';
-  $id = $input->name;
-  $name = $input->name;
+  $attributes = $input->attributes ?? [];
 @endphp
 <input 
-  type="{{ $input->type }}"
-  @if($input->value && $input->type !== 'file')
-  value="{{ $input->value }}"
+  @if(!isset($attributes['type']))
+    type="{{ $input->type }}"
   @endif
-  @foreach($input->attributes as $key => $value)
-    @if($key == 'class')
-      @php
-        $class .= $value;
-      @endphp
-    @elseif($key == 'id')
-      @php
-        $id = $value;
-      @endphp
-    @elseif($key == 'name')
-      @php
-        $name = $value;
-      @endphp
-    @else
-    {{$key}} = "{{ $value }}"
-    @endif
-  @endforeach
-  name="{{ $name }}"
-  class="{{ $class }}"
-  id="{{ $id }}">
+  @if(!isset($attributes['name']))
+    name="{{ $input->name }}"
+  @endif
+  @if(!isset($attributes['class']))
+    class="form-input form-control {{ $class ?? null }}"
+  @endif
+  @if(!isset($attributes['id']))
+    id="{{ $input->name }}"
+  @endif
+  @if(!isset($attributes['value']) && $input->type !== 'file')
+    value="{{ $input->value ?? null }}"
+  @endif
+  @include(CACHelper()->partial('attributes'), [
+    'attributes' => $input->attributes
+  ]) >
