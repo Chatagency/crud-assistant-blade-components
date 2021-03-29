@@ -1,6 +1,6 @@
 @php
   $attributes = $input->attributes ?? [];
-  $defaultValue = 1;
+  $defaultValue = $input->defaultValue ?? 1;
 @endphp
 <input
   @if(!isset($attributes['type']))
