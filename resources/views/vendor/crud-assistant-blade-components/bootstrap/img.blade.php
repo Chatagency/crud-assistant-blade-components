@@ -1,19 +1,14 @@
-<img
-class="{{ $class }}"
-@if($id)
-id="{{ $id }}"
-@endif
-src="{{ $value }}"
-@if($title)
-title="{{ $title }}"
-@endif 
-@if($width)
-width="{{ $width }}"
-@endif 
-@if($height)
-height="{{ $height }}"
-@endif 
+@php
+  $attributes = $attributes ?? [];
+@endphp
+<img  
+  @if(!isset($attributes['class']) && isset($class))
+    class="{{ $class }}"
+  @endif
+  @if(!isset($attributes['title']) && isset($title))
+    title="{{ $title }}"
+  @endif 
+  src="{{ $value }}"
 @include(CACHelper()->partial('attributes'), [
     'attributes' => $attributes ?? null
-])
-/>
+]) />

@@ -1,13 +1,31 @@
+@php
+  $attributes = $attributes ?? [];
+@endphp
 <form 
-    method="{{ strtolower($method) == 'get' ? 'get' : 'post' }}" 
-    action="{{ $action }}" 
-    class="d-inline-block" 
-    @isset($title) title="{{ $title }}"  @endisset >
+    @if(!isset($attributes['method']))
+      method="{{ strtolower($method) == 'get' ? 'get' : 'post' }}" 
+    @endif
+    @if(!isset($attributes['action']))
+      action="{{ $action }}" 
+    @endif
+    @if(!isset($attributes['class']))
+      class="d-inline-block"
+    @endif
+    @if(!isset($attributes['title']) && isset($title))
+      title="{{ $title }}"
+    @endif 
+    @include(CACHelper()->partial('attributes'), [
+      'attributes' => $attributes
+    ])>
     @csrf
-    @if(isset($method) && $method) @method($method) @endif
-    <button
-      class="{{ isset($class) && $class ? ' '.$class : null}}"
-      @if(isset($confirm) ?? $confirm) onClick="if(!confirm('{{ $confirm }}')) return false;" @endif>
-        {{ isset($icon) && $icon ? svg($icon, 'icon') : null }} @if(isset($label) && $label) <span class="">{{ $label }}</span>@endif
-    </button>
+
+    @if(isset($button) && isCACTemplate($button))
+      @include($button->type, $button->toArray())
+    @else
+      <button
+        class="{{ isset($class) && $class ? ' '.$class : null}}"
+        @if(isset($confirm) ?? $confirm) onClick="if(!confirm('{{ $confirm }}')) return false;" @endif>
+          {{ isset($icon) && $icon ? svg($icon, 'icon') : null }} @if(isset($label) && $label) <span class="">{{ $label }}</span>@endif
+      </button>
+    @endif
 </form>

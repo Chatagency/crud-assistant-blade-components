@@ -1,5 +1,5 @@
 <!-- Button trigger modal -->
-@if(isset($button->template) && $button->template)
+@if(isset($button) && isCACTemplate($button))
   @include(CACHelper()->component($button->type), $button->toArray())
 @else
   <button type="button" class="{{ $buttonClass }}" data-toggle="modal" data-target="#{{ $modalId }}">
@@ -19,7 +19,7 @@
       </button>
     </div>
     <div class="modal-body {{ $modalBodyClass }}">
-      @if(isset($value->template) && $value->template)
+      @if(isCACTemplate($value))
         @include(CACHelper()->component($value->type), $value->toArray())
       @else
         {{ $value }}
