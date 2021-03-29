@@ -64,7 +64,7 @@ class CrudAssistantBladeComponents
     }
     
     /**
-     * Undocumented function
+     * Static make method
      *
      * @return static
      */
@@ -83,23 +83,45 @@ class CrudAssistantBladeComponents
         return $this->namespace;
     }
 
+    /**
+     * Returns component path
+     *
+     * @param string $component
+     * 
+     * @return string
+     */
     public function component(string $component)
     {
         return $this->compose().$component;
     }
 
-    public function input(string $component)
+    /**
+     * Returns input path
+     *
+     * @param string $input
+     * 
+     * @return string
+     */
+    public function input(string $input)
     {
-        return $this->compose(true).$component;
+        return $this->compose(true).$input;
     }
 
+    /**
+     * Returns partial path
+     *
+     * @param string $partial
+     * 
+     * @return string
+     */
     public function partial(string $partial)
     {
         return $this->compose(false, true).$partial;
     }
 
     /**
-     * Returns component blade path.
+     * Returns component blade path
+     * for the component directive.
      *
      * @param string $component
      * 
@@ -117,7 +139,8 @@ class CrudAssistantBladeComponents
     }
 
     /**
-     * Returns input blade path
+     * Returns input blade path.
+     * for the input directive
      *
      * @param string $component
      * 
@@ -147,13 +170,25 @@ class CrudAssistantBladeComponents
     /**
      * Returns views base path
      *
-     * @return void
+     * @return string
      */
     public function base()
     {
         return $this->getNamespace()
             .'::'.$this->vendorNamespace
             .'.'.$this->namespace;
+    }
+
+    /**
+     * Returns theme path
+     *
+     * @param string $type
+     * 
+     * @return string
+     */
+    public function theme(string $type = null)
+    {
+        return $this->base().'.'. ($type ?? $this->type);
     }
 
     /**
@@ -165,8 +200,7 @@ class CrudAssistantBladeComponents
      */
     public function compose($input = false, $partial = false)
     {
-        $path = $this->base()
-            .'.'.$this->type;
+        $path = $this->theme();
 
         if(!$input && !$partial) {
             $path .= '.'.$this->componentPath;
@@ -215,6 +249,13 @@ class CrudAssistantBladeComponents
         return substr($string, 0, 1 ) !== "'" && substr($string, 0, 1 ) !== '"';
     }
 
+    /**
+     * Wraps string in single quotes.
+     *
+     * @param string $string
+     * 
+     * @return string
+     */
     public function wrapInQuotes(string $string)
     {
         return "'".$string."'";
