@@ -16,15 +16,15 @@
       <tr>
         @foreach ($row as $name => $rowValue)
             @if(is_iterable($rowValue))
-                @if(isset($rowValue->template) && isset($rowValue->type))
+                @if(isCACTemplate($rowValue))
                     <td class="cel_{{ $name }}">@include(CACHelper()->component($rowValue->type), $rowValue->toArray())</td>
                 @elseif(is_array($rowValue))
                      <td class="cel_{{ $name }}">
-                    @foreach($rowValue as $templateContainer)
-                        @if(isset($templateContainer->template) && isset($templateContainer->type))
-                          @include(CACHelper()->component($templateContainer->type), $templateContainer->toArray())
-                        @else
-                          {!! $rowValue !!}
+                    @foreach($rowValue as $value)
+                        @if(isCACTemplate($value))
+                          @include(CACHelper()->component($value->type), $value->toArray())
+                        @elseif(is_string($value))
+                          {!! $value !!}
                         @endif
                     @endforeach
                     </td>
@@ -43,7 +43,7 @@
 {{-- pagination links --}}
 @if(isset($pagination))
 <div class="pagination">
-  @if(isset($pagination->template) && $pagination->template)
+  @if(isCACTemplate($pagination))
     @include(CACHelper()->component($pagination->type), $pagination->all())
   @else
     {!! $pagination !!}
