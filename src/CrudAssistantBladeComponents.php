@@ -2,6 +2,8 @@
 
 namespace Chatagency\CrudAssistantBladeComponents;
 
+use Chatagency\CrudAssistant\DataContainer;
+
 /**
  * Crud Assistant Blade Components.
  */
@@ -71,6 +73,17 @@ class CrudAssistantBladeComponents
     public static function make(...$args)
     {
         return new static(...$args);
+    }
+
+    /**
+     * Returns DataContainer instance
+     *
+     * @param array $params
+     * @return C
+     */
+    public function container(array $params = [])
+    {
+        return new DataContainer($params);
     }
     
     /**
