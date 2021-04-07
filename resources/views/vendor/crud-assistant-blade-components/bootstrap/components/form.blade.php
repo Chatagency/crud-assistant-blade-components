@@ -17,7 +17,6 @@
     @include(CACHelper()->partial('attributes'), [
       'attributes' => $attributes
     ])>
-    @csrf
 
     @if(isset($button) && isCACTemplate($button))
       @include($button->type, $button->toArray())
@@ -28,4 +27,15 @@
           {{ isset($icon) && $icon ? svg($icon, 'icon') : null }} @if(isset($label) && $label) <span class="">{{ $label }}</span>@endif
       </button>
     @endif
+
+    @csrf
+
+    @include(CACHelper()->input('hidden'), [
+        'input' => CACHelper()->container([
+            'name' => '_method',
+            'type' => 'hidden',                   
+            'value' => $method,
+            'attributes' => [],
+        ]),
+    ])
 </form>
