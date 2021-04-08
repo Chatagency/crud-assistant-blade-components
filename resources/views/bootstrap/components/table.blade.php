@@ -5,7 +5,7 @@
       @if(isset($head) && is_iterable($head) && !empty($head))
       <tr>
         @foreach ($head as $headKey => $headValue)
-        <th scope="col" class="header_{!! $headKey !!}">{!! $headValue !!}</th>
+        <th scope="col" class="header-{{ $headKey }}">{!! $headValue !!}</th>
         @endforeach
       </tr>
     </thead>
@@ -17,9 +17,9 @@
         @foreach ($row as $name => $rowValue)
             @if(is_iterable($rowValue))
                 @if(isCACTemplate($rowValue))
-                    <td class="cel_{{ $name }}">@include(CACHelper()->component($rowValue->type), $rowValue->toArray())</td>
+                    <td class="cel-{{ $name }}">@include(CACHelper()->component($rowValue->type), $rowValue->toArray())</td>
                 @elseif(is_array($rowValue))
-                     <td class="cel_{{ $name }}">
+                     <td class="cel-{{ $name }}">
                     @foreach($rowValue as $value)
                         @if(isCACTemplate($value))
                           @include(CACHelper()->component($value->type), $value->toArray())
@@ -30,7 +30,7 @@
                     </td>
                 @endif
             @else
-            <td class="cel_{{ $name }}">{!! $rowValue !!}</td>
+            <td class="cel-{{ $name }}">{!! $rowValue !!}</td>
             @endif
         @endforeach
       </tr>

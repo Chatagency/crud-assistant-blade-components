@@ -17,13 +17,6 @@ class CrudAssistantBladeComponents
     protected $namespace = 'crud-assistant-blade-components';
 
     /**
-     * Vendor Namespace.
-     *
-     * @var string
-     */
-    protected $vendorNamespace = 'vendor';
-
-    /**
      * Component path.
      *
      * @var string
@@ -187,9 +180,7 @@ class CrudAssistantBladeComponents
      */
     public function base()
     {
-        return $this->getNamespace()
-            .'::'.$this->vendorNamespace
-            .'.'.$this->namespace;
+        return $this->getNamespace().'::';
     }
 
     /**
