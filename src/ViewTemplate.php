@@ -22,6 +22,8 @@ class ViewTemplate extends DataContainer
     
     public function setAttributes(array $attributes)
     {
+        // $this->attributes = array_merge($this->getAttributes(), $attributes);
+        
         foreach($attributes as $name => $value) {
             $this->setAttribute($name, $value);
         }
