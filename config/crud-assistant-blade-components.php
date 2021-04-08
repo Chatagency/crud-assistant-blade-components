@@ -1,7 +1,7 @@
 <?php
 
 /*
- * bootstrap or tailwindcss
+ * bootstrap, tailwindcss or styleless
  */
 return [
     'type' => 'bootstrap',
