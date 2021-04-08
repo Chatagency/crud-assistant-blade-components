@@ -15,5 +15,12 @@
   @include(CACHelper()->partial('attributes'), [
       'attributes' => $attributes ?? null
   ]) >
-  {{ isset($icon) && $icon ? svg($icon, 'icon') : null }} @if(isset($label) && $label) <span class="pl-1">{{ $label }}</span> @endif
+  @if(isset($icon))
+    @if(isCACTemplate($icon))
+        @include(CACHelper()->component($icon->type), $icon->toArray())
+    @else
+        {{ $icon }}
+    @endif
+  @endif
+  @if(isset($label) && $label) <span class="pl-1">{{ $label }}</span> @endif
 </a>

@@ -17,12 +17,12 @@
         @foreach ($row as $name => $rowValue)
             @if(is_iterable($rowValue))
                 @if(isCACTemplate($rowValue))
-                    <td class="px-4 py-2 cel_{{ $name }}">@include(CACHelper()->component($rowValue->type), $rowValue->all())</td>
+                    <td class="px-4 py-2 cel_{{ $name }}">@include(CACHelper()->component($rowValue->type), $rowValue->toArray())</td>
                 @elseif(is_array($rowValue))
                     <td class="px-4 py-2 cel_{{ $name }}">
                     @foreach($rowValue as $value)
                         @if(isCACTemplate($value))
-                          @include(CACHelper()->component($value->type), $value->all())
+                          @include(CACHelper()->component($value->type), $value->toArray())
                         @else
                           {!! $rowValue !!}
                         @endif
@@ -44,7 +44,7 @@
 @if(isset($pagination))
 <div class="pagination">
   @if(isCACTemplate($pagination))
-    @include(CACHelper()->component($pagination->type), $pagination->all())
+    @include(CACHelper()->component($pagination->type), $pagination->toArray())
   @else
     {!! $pagination !!}
   @endif

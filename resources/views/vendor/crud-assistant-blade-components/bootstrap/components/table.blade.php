@@ -44,7 +44,7 @@
 @if(isset($pagination))
 <div class="pagination">
   @if(isCACTemplate($pagination))
-    @include(CACHelper()->component($pagination->type), $pagination->all())
+    @include(CACHelper()->component($pagination->type), $pagination->toArray())
   @else
     {!! $pagination !!}
   @endif

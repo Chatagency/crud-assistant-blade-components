@@ -22,9 +22,9 @@
       @include($button->type, $button->toArray())
     @else
       <button
-        class="{{ isset($class) && $class ? ' '.$class : null}}"
+        class="{{ isset($class) && $class ? ' '.$class : null }}"
         @if(isset($confirm) ?? $confirm) onClick="if(!confirm('{{ $confirm }}')) return false;" @endif>
-          {{ isset($icon) && $icon ? svg($icon, 'icon') : null }} @if(isset($label) && $label) <span class="">{{ $label }}</span>@endif
+          {{ isset($icon) ? $icon : null }} @if(isset($label) && $label) <span class="">{{ $label }}</span>@endif
       </button>
     @endif
 
