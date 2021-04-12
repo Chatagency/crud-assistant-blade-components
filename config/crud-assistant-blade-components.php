@@ -4,5 +4,5 @@
  * bootstrap, tailwindcss or styleless
  */
 return [
-    'type' => 'bootstrap',
+    'theme' => 'bootstrap',
 ];

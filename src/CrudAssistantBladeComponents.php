@@ -53,7 +53,7 @@ class CrudAssistantBladeComponents
      */
     public function __construct(string $type = null)
     {
-        $this->type = $type ?? config($this->namespace.'.type') ?? 'bootstrap';
+        $this->type = $type ?? config($this->namespace.'.theme') ?? 'bootstrap';
 
         return $this;
     }
