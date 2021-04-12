@@ -1,1 +1,1 @@
-@caInput('text', $input)
+@cacInput('text', $input)

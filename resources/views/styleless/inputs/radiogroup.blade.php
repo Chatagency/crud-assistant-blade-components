@@ -8,7 +8,7 @@
             'value' =>  $input->value,
         ])
 
-        @caInput('label', $radio)
+        @cacInput('label', $radio)
 
     </span>
   

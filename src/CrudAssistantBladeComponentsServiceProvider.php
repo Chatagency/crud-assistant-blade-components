@@ -44,7 +44,7 @@ class CrudAssistantBladeComponentsServiceProvider extends ServiceProvider
 
     public function registerBladeDirectives($helper)
     {
-        Blade::directive('caComponent', function ($expression) use ($helper) {
+        Blade::directive('cacComponent', function ($expression) use ($helper) {
             
             $parsed = $helper->parse($expression);
             $component = $parsed['component'];
@@ -54,7 +54,7 @@ class CrudAssistantBladeComponentsServiceProvider extends ServiceProvider
             return "<?php echo view({$path}, {$params})->render(); ?>";
         });
 
-        Blade::directive('caInput', function ($expression) use ($helper) {
+        Blade::directive('cacInput', function ($expression) use ($helper) {
             
             $parsed = $helper->parse($expression);
             $component = $parsed['component'];
