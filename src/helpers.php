@@ -4,9 +4,9 @@ use Chatagency\CrudAssistantBladeComponents\ViewTemplate;
 use Chatagency\CrudAssistantBladeComponents\CrudAssistantBladeComponents;
 
 if(!function_exists('CACHelper')) {
-    function CACHelper()
+    function CACHelper($type = null)
     {
-        return CrudAssistantBladeComponents::make();
+        return CrudAssistantBladeComponents::make($type);
     }
 }
 
