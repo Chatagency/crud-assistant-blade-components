@@ -1,5 +1,5 @@
 {{-- table --}}
-<table class="cac-table">
+<table class="cac-table {{ $tableClass ?? null }}">
     <thead>
         @if(isset($head) && is_iterable($head) && !empty($head))
         <tr>
