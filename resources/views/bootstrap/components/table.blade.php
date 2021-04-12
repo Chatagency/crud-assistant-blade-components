@@ -1,52 +1,13 @@
-{{-- table --}}
 <div class="table-responsive">
-  <table class="table">
-    <thead>
-      @if(isset($head) && is_iterable($head) && !empty($head))
-      <tr>
-        @foreach ($head as $headKey => $headValue)
-        <th scope="col" class="header-{{ $headKey }}">{!! $headValue !!}</th>
-        @endforeach
-      </tr>
-    </thead>
-    @endif
-    
-    <tbody>
-      @foreach ($body as $row)
-      <tr>
-        @foreach ($row as $name => $rowValue)
-            @if(is_iterable($rowValue))
-                @if(isCACTemplate($rowValue))
-                    <td class="cel-{{ $name }}">@include(CACHelper()->component($rowValue->type), $rowValue->toArray())</td>
-                @elseif(is_array($rowValue))
-                     <td class="cel-{{ $name }}">
-                    @foreach($rowValue as $value)
-                        @if(isCACTemplate($value))
-                          @include(CACHelper()->component($value->type), $value->toArray())
-                        @elseif(is_string($value))
-                          {!! $value !!}
-                        @endif
-                    @endforeach
-                    </td>
-                @endif
-            @else
-            <td class="cel-{{ $name }}">{!! $rowValue !!}</td>
-            @endif
-        @endforeach
-      </tr>
-      @endforeach
-    </tbody>
-    
-  </table>
+    @include(CACHelper('styleless')->component('table'), [
+        'head' => $head ?? null,
+        'body' => $body ?? null,
+        'pagination' => $pagination ?? null,
+        'count' => $count ?? null,
+        'tableClass' => 'table',
+        'headClass' => null,
+        'trClass' => null,
+        'tdClass' => null,
+        'paginationClass' => 'pagination',
+    ])
 </div>
-
-{{-- pagination links --}}
-@if(isset($pagination))
-<div class="pagination">
-  @if(isCACTemplate($pagination))
-    @include(CACHelper()->component($pagination->type), $pagination->toArray())
-  @else
-    {!! $pagination !!}
-  @endif
-</div>
-@endif
