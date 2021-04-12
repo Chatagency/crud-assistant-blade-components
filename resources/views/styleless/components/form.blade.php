@@ -8,8 +8,8 @@
     @if(!isset($attributes['action']))
       action="{{ $action }}" 
     @endif
-    @if(!isset($attributes['class']) && isset($class))
-      class="d-inline-block"
+    @if(!isset($attributes['class']) && isset($formClass))
+      class="{{ $formClass }}"
     @endif
     @if(!isset($attributes['title']) && isset($title))
       title="{{ $title }}"
