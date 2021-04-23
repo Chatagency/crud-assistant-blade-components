@@ -25,4 +25,3 @@
   @if($input->value == $defaultValue || (isset($attributes['value']) && $input->value = $attributes['value']))
     checked
   @endif >
-
