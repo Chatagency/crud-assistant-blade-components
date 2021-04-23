@@ -25,13 +25,11 @@
                 'label' => $placeholder,
                 'attributes' => [],
             ]),
-            'value' => '',
         ])
     @endif
     @foreach($input->subElements as $key => $option)
         @include(CACHelper()->input('option'), [
             'input' => $option,
-            'value' => $input->value,
         ])
     @endforeach
 </select>

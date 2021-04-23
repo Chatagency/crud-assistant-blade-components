@@ -1,5 +1,6 @@
 @php
     $attributes = $input->attributes ?? [];
+    $value = isset($input->parent) ? $input->parent->value : null;
 @endphp
 <option 
     @if(!isset($attributes['value']))

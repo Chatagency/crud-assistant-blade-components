@@ -1,17 +1,18 @@
 @php
     $attributes = $input->attributes ?? [];
+    $value = isset($input->parent) ? $input->parent->value : null;
 @endphp
 <input
     @if(!isset($attributes['type']))
         type="{{ $input->type }}"
     @endif
     @if(!isset($attributes['name']))
-        name="{{ $radioName }}"
+        name="{{ isset($input->parent) ? $input->parent->name : null }}"
     @endif
     @if(!isset($attributes['value']))
         value="{{ $input->name }}"
     @endif
-    @if(!isset($attributes['class']) && isset('class'))
+    @if(!isset($attributes['class']) && isset($class))
         class="{{ $class }}"
     @endif
     @if(!isset($attributes['id']))
