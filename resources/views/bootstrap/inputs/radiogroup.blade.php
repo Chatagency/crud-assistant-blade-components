@@ -4,8 +4,6 @@
 
     @include(CACHelper()->input('radio'), [
       'input' => $radio,
-      'radioName' => $input->name,
-      'value' =>  $input->value,
     ])
 
     @cacInput('label', $radio)
