@@ -23,5 +23,6 @@
                 {{ $icon }}
             @endif
         @endif
-        <span class="pl-1">{{ $label }}</span> @endif
+        <span class="pl-1">{{ $label }}</span> 
+   
 </button>
