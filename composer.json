@@ -15,9 +15,19 @@
             "role": "Developer"
         }
     ],
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../crud-assistant",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
     "require": {
         "php": "^7.1",
-        "illuminate/support": "^6.0"
+        "illuminate/support": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0|^8.0",
+        "chatagency/crud-assistant": "@dev"
     },
     "require-dev": {
         "orchestra/testbench": "^4.0",
@@ -45,10 +55,7 @@
         "laravel": {
             "providers": [
                 "Chatagency\\CrudAssistantBladeComponents\\CrudAssistantBladeComponentsServiceProvider"
-            ],
-            "aliases": {
-                "CrudAssistantBladeComponents": "Chatagency\\CrudAssistantBladeComponents\\CrudAssistantBladeComponentsFacade"
-            }
+            ]
         }
     }
 }

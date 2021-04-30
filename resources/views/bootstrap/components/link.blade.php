@@ -1,0 +1,1 @@
+@include(CACHelper('styleless')->component('link', get_defined_vars()))

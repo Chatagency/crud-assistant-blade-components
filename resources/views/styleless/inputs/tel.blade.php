@@ -1,0 +1,1 @@
+@cacInput('text', $input)

@@ -1,0 +1,1 @@
+@include(CACHelper('styleless')->component('img', get_defined_vars()))
