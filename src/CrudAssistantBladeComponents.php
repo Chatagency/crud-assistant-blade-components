@@ -10,6 +10,13 @@ use Chatagency\CrudAssistant\DataContainer;
 class CrudAssistantBladeComponents
 {
     /**
+     * Default theme
+     *
+     * @var string
+     */
+    protected $defaultTheme = 'bootstrap-4';
+    
+    /**
      * Package Namespace.
      *
      * @var string
@@ -53,7 +60,7 @@ class CrudAssistantBladeComponents
      */
     public function __construct(string $type = null)
     {
-        $this->type = $type ?? config($this->namespace.'.theme') ?? 'bootstrap';
+        $this->type = $type ?? config($this->namespace.'.theme') ?? $this->defaultTheme;
 
         return $this;
     }
