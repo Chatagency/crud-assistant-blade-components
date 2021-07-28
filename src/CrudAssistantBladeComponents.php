@@ -272,9 +272,26 @@ class CrudAssistantBladeComponents
         return "'".$string."'";
     }
 
+    /**
+     * Trim quotes
+     *
+     * @param string $string
+     * @return string
+     */
     public function trimQuotes($string)
     {
         return trim($string, '\'"');
+    }
+
+    /**
+     * Checks if value is view template
+     *
+     * @param $value
+     * @return boolean
+     */
+    public static function isTemplate($value)
+    {
+        return is_a($value, ViewTemplate::class);
     }
 
 }
