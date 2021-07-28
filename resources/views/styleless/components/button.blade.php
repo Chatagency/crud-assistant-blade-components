@@ -23,6 +23,6 @@
                 {{ $icon }}
             @endif
         @endif
-        <span class="pl-1">{{ $label }}</span> 
+        {!! $label !!}
    
 </button>
