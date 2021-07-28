@@ -1,5 +1,6 @@
 @php
     $attributes = $attributes ?? [];
+    $labelAttributes = $labelAttributes ?? [];
 @endphp
 <a
     href="{{ $action }}"
@@ -13,7 +14,7 @@
         target="{{ $target }}"
     @endif 
     @include(CACHelper()->partial('attributes'), [
-        'attributes' => $attributes ?? null
+        'attributes' => $attributes
     ]) >
     @if(isset($icon))
     @if(isCACTemplate($icon))
@@ -24,6 +25,6 @@
     @endif
     @if(isset($label) && $label) <span
         @include(CACHelper()->partial('attributes'), [
-            'attributes' => $labelAttributes ?? null
-        ])>{{ $label }}</span> @endif
+            'attributes' => $labelAttributes
+        ])>{!! $label !!}</span> @endif
 </a>
