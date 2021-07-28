@@ -19,12 +19,12 @@
     ])>
 
     @if(isset($button) && isCACTemplate($button))
-      @include($button->type, $button->toArray())
+      @include(CACHelper()->component($button->type), $button->toArray())
     @else
       <button
-        class="{{ isset($class) && $class ? ' '.$class : null }}"
+        class="{{ isset($buttonClass) && $buttonClass ? ' '.$buttonClass : null }}"
         @if(isset($confirm) ?? $confirm) onClick="if(!confirm('{{ $confirm }}')) return false;" @endif>
-          {{ isset($icon) ? $icon : null }} @if(isset($label) && $label) <span>{{ $label }}</span>@endif
+          {{ isset($icon) ? $icon : null }} @if(isset($label) && $label) <span>{!! $label !!}</span>@endif
       </button>
     @endif
 
