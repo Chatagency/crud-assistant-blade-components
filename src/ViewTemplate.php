@@ -7,16 +7,6 @@ use Chatagency\CrudAssistant\DataContainer;
 class ViewTemplate extends DataContainer
 {
     /**
-     * Arbitrary data.
-     *
-     * @var array
-     */
-    protected $data = [
-        'type' => null,
-        'attributes' => [],
-    ];
-    
-    /**
      * Sets template type.
      *
      * @param string $type
@@ -47,7 +37,7 @@ class ViewTemplate extends DataContainer
      */
     public function getAttributes()
     {
-        return $this->attributes;
+        return $this->attributes ?? [];
     }
 
     /**
