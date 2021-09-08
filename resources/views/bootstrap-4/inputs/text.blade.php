@@ -18,5 +18,5 @@
     value="{{ $input->value ?? null }}"
   @endif
   @include(CACHelper()->partial('attributes'), [
-    'attributes' => $input->attributes
+    'attributes' => $attributes
   ]) >

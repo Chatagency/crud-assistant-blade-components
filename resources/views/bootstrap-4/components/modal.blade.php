@@ -1,5 +1,7 @@
 <!-- Button trigger modal -->
-@if(isset($button) && isCACTemplate($button))
+@if(isset($button) && !$button)
+    {{-- No button --}}
+@elseif(isset($button) && isCACTemplate($button))
   @include(CACHelper()->component($button->getType()), $button->toArray())
 @else
   <button type="button" class="{{ $buttonClass ?? 'btn btn-link p-0' }}" data-toggle="modal" data-target="#{{ $modalId }}">
@@ -18,14 +20,14 @@
       <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="modal-body {{ $modalBodyClass }}">
+    <div class="modal-body {{ $modalBodyClass ?? null }}">
       @if(isCACTemplate($value))
         @include(CACHelper()->component($value->getType()), $value->toArray())
       @else
         {{ $value }}
       @endif
     </div>
-    @if($modalFooter)
+    @if(isset($modalFooter) && $modalFooter)
     <div class="modal-footer">
       @if($modalButtonClose)
         <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ $modalButtonClose ?? "Close" }}</button>
