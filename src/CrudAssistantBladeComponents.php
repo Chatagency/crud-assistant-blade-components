@@ -10,6 +10,13 @@ use Chatagency\CrudAssistant\DataContainer;
 class CrudAssistantBladeComponents
 {
     /**
+     * Default theme
+     *
+     * @var string
+     */
+    protected $defaultTheme = 'bootstrap-4';
+    
+    /**
      * Package Namespace.
      *
      * @var string
@@ -53,7 +60,7 @@ class CrudAssistantBladeComponents
      */
     public function __construct(string $type = null)
     {
-        $this->type = $type ?? config($this->namespace.'.theme') ?? 'bootstrap';
+        $this->type = $type ?? config($this->namespace.'.theme') ?? $this->defaultTheme;
 
         return $this;
     }
@@ -265,9 +272,26 @@ class CrudAssistantBladeComponents
         return "'".$string."'";
     }
 
+    /**
+     * Trim quotes
+     *
+     * @param string $string
+     * @return string
+     */
     public function trimQuotes($string)
     {
         return trim($string, '\'"');
+    }
+
+    /**
+     * Checks if value is view template
+     *
+     * @param $value
+     * @return boolean
+     */
+    public static function isTemplate($value)
+    {
+        return is_a($value, ViewTemplate::class);
     }
 
 }

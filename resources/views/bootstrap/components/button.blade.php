@@ -1,1 +1,0 @@
-@include(CACHelper('styleless')->component('button', get_defined_vars()))

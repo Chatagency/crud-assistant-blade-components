@@ -1,8 +1,8 @@
 <?php
 
 /*
- * bootstrap, tailwindcss or styleless
+ * bootstrap-4, tailwind-css or styleless
  */
 return [
-    'theme' => 'bootstrap',
+    'theme' => 'bootstrap-4',
 ];

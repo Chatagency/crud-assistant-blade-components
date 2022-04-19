@@ -1,6 +1,6 @@
 @php
     $vars = array_merge( get_defined_vars(), [
-        'formClass' => "d-inline-block",
+        'formClass' => "inline",
     ]);
 @endphp
 

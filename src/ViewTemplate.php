@@ -60,7 +60,7 @@ class ViewTemplate extends DataContainer
      */
     public function setAttribute(string $name, $value)
     {
-        $oldAttributes = $this-> getAttributes();
+        $oldAttributes = $this->getAttributes();
         $oldAttributes[$name] = $value;
         $this->attributes = $oldAttributes;
 

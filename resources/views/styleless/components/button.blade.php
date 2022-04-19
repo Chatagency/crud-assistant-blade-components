@@ -14,7 +14,7 @@
     @include(CACHelper()->partial('attributes'), [
     'attributes' => $attributes
     ]) 
-    @if(isset($confirm) ?? $confirm) onClick="if(!confirm('{{ $confirm }}')) return false;" @endif>
+    @if(isset($confirm) && $confirm) onClick="if(!confirm('{{ $confirm }}')) return false;" @endif>
     
         @if(isset($icon))
             @if(isCACTemplate($icon))
@@ -23,6 +23,6 @@
                 {{ $icon }}
             @endif
         @endif
-        <span class="pl-1">{{ $label }}</span> 
+        {!! $label !!}
    
 </button>

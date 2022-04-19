@@ -1,8 +1,7 @@
 @php
   $attributes = $input->attributes ?? [];
-  $defaultValue = $input->defaultValue ?? 1;
 @endphp
-<input
+<input 
   @if(!isset($attributes['type']))
     type="{{ $input->type }}"
   @endif
@@ -10,18 +9,14 @@
     name="{{ $input->name }}"
   @endif
   @if(!isset($attributes['class']))
-    class="{{ $class ?? 'mr-1' }}"
+    class="form-control {{ $class ?? null }}"
   @endif
   @if(!isset($attributes['id']))
     id="{{ $input->name }}"
   @endif
-  @if(!isset($attributes['value']))
-    value="{{ $defaultValue }}"
+  @if(!isset($attributes['value']) && $input->type !== 'file')
+    value="{{ $input->value ?? null }}"
   @endif
-
   @include(CACHelper()->partial('attributes'), [
     'attributes' => $attributes
-  ]) 
-  @if($input->value == $defaultValue || (isset($attributes['value']) && $input->value = $attributes['value']))
-    checked
-  @endif >
+  ]) >
