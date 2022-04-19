@@ -17,11 +17,8 @@
     ],
     "repositories": [
         {
-            "type": "path",
-            "url": "../crud-assistant",
-            "options": {
-                "symlink": true
-            }
+            "url": "https://github.com/chatagency/crud-assistant.git",
+            "type": "git"
         }
     ],
     "require": {
