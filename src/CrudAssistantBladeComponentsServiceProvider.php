@@ -3,6 +3,7 @@
 namespace Chatagency\CrudAssistantBladeComponents;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class CrudAssistantBladeComponentsServiceProvider extends ServiceProvider
 {
@@ -11,21 +12,23 @@ class CrudAssistantBladeComponentsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /*
-         * Optional methods to load your package assets
-         */
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'crud-assistant-blade-components');
+        $helper = CrudAssistantBladeComponents::make();
+
+        $this->loadViewsFrom(__DIR__.'/../resources/views', $helper->getNamespace());
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('crud-assistant-blade-components.php'),
-            ], 'config');
+                __DIR__.'/../config/crud-assistant-blade-components.php' => config_path('crud-assistant-blade-components.php'),
+            ], 'cabc-config');
 
             // Publishing the views.
             $this->publishes([
                 __DIR__.'/../resources/views' => resource_path('views/vendor/crud-assistant-blade-components'),
-            ], 'views');
+            ], 'cabc-views');
         }
+        
+        $this->registerBladeDirectives($helper);
+
     }
 
     /**
@@ -34,11 +37,31 @@ class CrudAssistantBladeComponentsServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'crud-assistant-blade-components');
+        $this->mergeConfigFrom(__DIR__.'/../config/crud-assistant-blade-components.php', 'crud-assistant-blade-components');
 
-        // Register the main class to use with the facade
-        $this->app->singleton('crud-assistant-blade-components', function () {
-            return new CrudAssistantBladeComponents;
+        include_once('helpers.php');
+    }
+
+    public function registerBladeDirectives($helper)
+    {
+        Blade::directive('cacComponent', function ($expression) use ($helper) {
+            
+            $parsed = $helper->parse($expression);
+            $component = $parsed['component'];
+            $params = $parsed['params'] ??  null;
+            $path = $helper->rawComponent($component);
+
+            return "<?php echo view({$path}, {$params})->render(); ?>";
+        });
+
+        Blade::directive('cacInput', function ($expression) use ($helper) {
+            
+            $parsed = $helper->parse($expression);
+            $component = $parsed['component'];
+            $params = $parsed['params'] ??  null;
+            $path = $helper->rawInput($component);
+            
+            return "<?php echo view({$path}, ['input' => {$params}])->render(); ?>";
         });
     }
 }

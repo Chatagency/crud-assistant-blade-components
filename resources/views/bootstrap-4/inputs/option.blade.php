@@ -1,0 +1,1 @@
+@include(CACHelper('styleless')->input('option', get_defined_vars()))
