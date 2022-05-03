@@ -27,9 +27,12 @@
             ]),
         ])
     @endif
-    @foreach($input->subElements as $key => $option)
-        @include(CACHelper()->input('option'), [
-            'input' => $option,
-        ])
-    @endforeach
+    @if (isset($input->subElements))
+        @foreach($input->subElements as $key => $option)
+            @include(CACHelper()->input('option'), [
+                'input' => $option,
+            ])
+        @endforeach
+    @endif
+    
 </select>
