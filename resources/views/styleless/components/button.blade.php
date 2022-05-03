@@ -2,8 +2,8 @@
     $attributes = $attributes ?? [];
 @endphp
 <button
-    @if(!isset($attributes['type']))
-        type="{{ $type ?? "button" }}"
+    @if(!isset($attributes['type']) && isset($type))
+        type="{{ $type }}"
     @endif
     @if(!isset($attributes['class']) && isset($class))
         class="{{ $class }}"
